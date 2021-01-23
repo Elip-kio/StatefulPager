@@ -1,0 +1,3 @@
+include ':stateful-pager'
+include ':app'
+rootProject.name = "Stateful Pager"
