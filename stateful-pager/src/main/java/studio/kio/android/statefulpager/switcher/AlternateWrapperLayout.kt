@@ -25,8 +25,8 @@ class AlternateWrapperLayout(context: Context) : FrameLayout(context) {
 
         //fit size to parent
         updateLayoutParams<ViewGroup.LayoutParams> {
-            width = parent.width
-            height = parent.height
+            width = if (parent.width != 0) parent.width else ViewGroup.LayoutParams.WRAP_CONTENT
+            height = if (parent.height != 0) parent.height else ViewGroup.LayoutParams.WRAP_CONTENT
         }
     }
 

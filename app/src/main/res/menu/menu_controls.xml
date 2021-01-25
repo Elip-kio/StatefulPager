@@ -14,10 +14,4 @@
             android:id="@+id/end_loading_error"
             android:title="@string/end_loading_error" />
     </group>
-
-    <group>
-        <item
-            android:id="@+id/switch_layout_manager"
-            android:title="@string/switch_layout_manager" />
-    </group>
 </menu>

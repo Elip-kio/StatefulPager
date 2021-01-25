@@ -12,7 +12,7 @@ import studio.kio.android.stateful.core.BindingViewHolder
 import studio.kio.android.stateful.databinding.ActivityLauncherBinding
 import studio.kio.android.stateful.databinding.ItemLauncherBinding
 import studio.kio.android.stateful.sample.recycler.RecyclerActivity
-import studio.kio.android.stateful.sample.standard.MainActivity
+import studio.kio.android.stateful.sample.standard.StandardActivity
 
 class LauncherActivity : AppCompatActivity() {
 
@@ -32,7 +32,7 @@ class LauncherActivity : AppCompatActivity() {
         binding.launchItems.adapter = LauncherAdapter(data).apply {
             onItemClickListener = {
                 val intent = when (it) {
-                    0 -> Intent(this@LauncherActivity, MainActivity::class.java)
+                    0 -> Intent(this@LauncherActivity, StandardActivity::class.java)
                     1 -> Intent(this@LauncherActivity, RecyclerActivity::class.java)
                     else -> null
                 }

@@ -2,80 +2,62 @@ package studio.kio.android.stateful.sample.recycler
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import studio.kio.android.stateful.R
+import studio.kio.android.stateful.core.BaseActivity
+import studio.kio.android.stateful.core.BindingViewHolder
+import studio.kio.android.stateful.databinding.ActivityListBinding
+import studio.kio.android.stateful.databinding.ItemRecyclerBinding
 import studio.kio.android.statefulpager.StatefulPagerHelper
 
-class RecyclerActivity : AppCompatActivity() {
-    private lateinit var statefulPagerHelper: StatefulPagerHelper
-    private lateinit var recycler: RecyclerView
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list)
+class RecyclerActivity : BaseActivity() {
+    private val binding by lazy { ActivityListBinding.inflate(layoutInflater) }
 
-        recycler = findViewById(R.id.recycler)
-        recycler.layoutManager = LinearLayoutManager(this)
-        recycler.adapter = object : RecyclerView.Adapter<SampleViewHolder>() {
-            override fun onCreateViewHolder(
-                parent: ViewGroup,
-                viewType: Int
-            ): SampleViewHolder = SampleViewHolder(TextView(parent.context))
-
-            @SuppressLint("SetTextI18n")
-            override fun onBindViewHolder(holder: SampleViewHolder, position: Int) {
-                holder.text.text = "$position . This is sample line"
-            }
-
-            override fun getItemCount(): Int = 50
-
-        }
-        recycler.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        this.statefulPagerHelper = StatefulPagerHelper(recycler)
-    }
-
-    private class SampleViewHolder(val text: TextView) : RecyclerView.ViewHolder(text)
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.recycler_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
+    override fun onCreateStatefulPagerHelper() = StatefulPagerHelper(binding.recycler)
 
     @SuppressLint("SetTextI18n")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.start_loading -> {
-                statefulPagerHelper.show(
-                    layoutInflater.inflate(
-                        R.layout.state_loading,
-                        recycler,
-                        false
-                    )
-                )
-            }
-            R.id.end_loading_success -> {
-                statefulPagerHelper.showDefaultView()
-            }
-            R.id.end_loading_empty -> {
-                statefulPagerHelper.show(
-                    layoutInflater.inflate(R.layout.state_error_or_empty, recycler, false).apply {
-                        findViewById<TextView>(R.id.text).text = "There is nothing to be shown."
-                    })
-            }
-            R.id.end_loading_error -> {
-                statefulPagerHelper.show(
-                    layoutInflater.inflate(R.layout.state_error_or_empty, recycler, false).apply {
-                        findViewById<TextView>(R.id.text).text =
-                            "Oops, an error occurred during data loading!"
-                    })
-            }
-        }
-        return super.onOptionsItemSelected(item)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+
+        title = "Recycler View Demo"
+
+        binding.recycler.layoutManager = LinearLayoutManager(this)
+        binding.recycler.adapter = RecyclerAdapter()
+
+        binding.recycler.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+
+        //You can change state to loading at beginning
+        //statefulEnableConfig?.apply {
+        //    statefulPagerHelper.show(loadingView.root)
+        //}
     }
+
+}
+
+class RecyclerAdapter : RecyclerView.Adapter<BindingViewHolder<ItemRecyclerBinding>>() {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BindingViewHolder<ItemRecyclerBinding> = BindingViewHolder(
+        ItemRecyclerBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+    )
+
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: BindingViewHolder<ItemRecyclerBinding>, position: Int) {
+        holder.binding.title.text = "$position . This is a sample line"
+    }
+
+    override fun getItemCount(): Int = 0
+
 }
