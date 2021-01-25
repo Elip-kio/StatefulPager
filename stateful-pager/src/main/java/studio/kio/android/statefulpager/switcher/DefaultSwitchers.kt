@@ -1,4 +1,4 @@
-package studio.kio.android.statefulpager.switchers
+package studio.kio.android.statefulpager.switcher
 
 import android.view.View
 import android.view.ViewGroup

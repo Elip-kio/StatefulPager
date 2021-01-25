@@ -1,13 +1,11 @@
 package studio.kio.android.statefulpager
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.MainThread
 import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
-import studio.kio.android.statefulpager.switchers.DefaultSwitcher
-import studio.kio.android.statefulpager.switchers.RecyclerViewSwitcher
+import studio.kio.android.statefulpager.switcher.DefaultSwitcher
+import studio.kio.android.statefulpager.switcher.RecyclerViewSwitcher
 
 /**
  * created by KIO on 2021/1/11
@@ -23,8 +21,7 @@ class StatefulPagerHelper(private val container: ViewGroup) {
 
     private val childrenOriginVisibility = mutableMapOf<View, Int>()
 
-    @MainThread
-    fun showDefaultView() {
+    fun showDefaultView() = container.post {
         pageState = PageState.DEFAULT
 
         childrenOriginVisibility.iterator().forEach {
@@ -34,8 +31,7 @@ class StatefulPagerHelper(private val container: ViewGroup) {
         viewStateChanger.switchDefault()
     }
 
-    @MainThread
-    fun show(viewGenerator: LayoutInflater.() -> View) {
+    fun show(view: View) = container.post {
         if (pageState == PageState.DEFAULT) {
             //record origin view state
             childrenOriginVisibility.clear()
@@ -47,7 +43,6 @@ class StatefulPagerHelper(private val container: ViewGroup) {
 
         pageState = PageState.ALTERNATE
 
-        val view = viewGenerator.invoke(LayoutInflater.from(container.context))
         viewStateChanger.switchAlternate(view)
     }
 

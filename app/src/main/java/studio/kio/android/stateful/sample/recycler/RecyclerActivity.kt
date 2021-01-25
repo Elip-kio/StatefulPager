@@ -1,4 +1,4 @@
-package studio.kio.android.stateful
+package studio.kio.android.stateful.sample.recycler
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import studio.kio.android.stateful.R
 import studio.kio.android.statefulpager.StatefulPagerHelper
 
 class RecyclerActivity : AppCompatActivity() {
@@ -50,27 +51,29 @@ class RecyclerActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.start_loading -> {
-                statefulPagerHelper.show {
-                    inflate(R.layout.state_loading, null)
-                }
+                statefulPagerHelper.show(
+                    layoutInflater.inflate(
+                        R.layout.state_loading,
+                        recycler,
+                        false
+                    )
+                )
             }
             R.id.end_loading_success -> {
                 statefulPagerHelper.showDefaultView()
             }
             R.id.end_loading_empty -> {
-                statefulPagerHelper.show {
-                    inflate(R.layout.state_error_or_empty, null).apply {
+                statefulPagerHelper.show(
+                    layoutInflater.inflate(R.layout.state_error_or_empty, recycler, false).apply {
                         findViewById<TextView>(R.id.text).text = "There is nothing to be shown."
-                    }
-                }
+                    })
             }
             R.id.end_loading_error -> {
-                statefulPagerHelper.show {
-                    inflate(R.layout.state_error_or_empty, null).apply {
+                statefulPagerHelper.show(
+                    layoutInflater.inflate(R.layout.state_error_or_empty, recycler, false).apply {
                         findViewById<TextView>(R.id.text).text =
                             "Oops, an error occurred during data loading!"
-                    }
-                }
+                    })
             }
         }
         return super.onOptionsItemSelected(item)
