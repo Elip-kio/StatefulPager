@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Stateful Pager</string>
+    <string name="recycler_view_demo">RecyclerView Demo</string>
+    <string name="start_loading">Start Loading</string>
+    <string name="end_loading_success">End Loading Success</string>
+    <string name="end_loading_empty">End Loading Empty</string>
+    <string name="end_loading_error">End Loading Error</string>
+    <string name="switch_layout_manager">Switch Layout Manager</string>
+    <string name="linear_layout_manager">LinearLayoutManager</string>
+    <string name="grid_layout_manager">GridLayoutManager</string>
 </resources>

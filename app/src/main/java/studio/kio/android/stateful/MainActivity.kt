@@ -1,22 +1,25 @@
 package studio.kio.android.stateful
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import studio.kio.android.stateful_pager.StatefulPageHelper
+import studio.kio.android.statefulpager.StatefulPagerHelper
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var statefulPageHelper: StatefulPageHelper
+    private lateinit var statefulPagerHelper: StatefulPagerHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stateful_page)
 
         val root = findViewById<ViewGroup>(R.id.root)
-        statefulPageHelper = StatefulPageHelper(root)
+        statefulPagerHelper = StatefulPagerHelper(root)
 
         root.setOnClickListener {
             reload()
@@ -32,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         if (loading) return
 
         loading = true
-        statefulPageHelper.showMinor {
+        statefulPagerHelper.show {
             inflate(R.layout.state_loading, null)
         }
 
@@ -42,19 +45,19 @@ class MainActivity : AppCompatActivity() {
             val stateFlag = Math.random()
 
             if (stateFlag < 0.5) {
-                statefulPageHelper.showMajor()
+                statefulPagerHelper.showDefaultView()
             } else {
-                statefulPageHelper.showMinor {
+                statefulPagerHelper.show {
                     if (stateFlag < 0.7) {
                         //error
                         inflate(R.layout.state_error_or_empty, null).apply {
                             findViewById<TextView>(R.id.text).text =
-                                    "Oops, an error occurred during data loading!"
+                                "Oops, an error occurred during data loading!"
                         }
                     } else {
                         inflate(R.layout.state_error_or_empty, null).apply {
                             findViewById<TextView>(R.id.text).text =
-                                    "There is nothing to be shown."
+                                "There is nothing to be shown."
                         }
                     }
                 }
@@ -62,6 +65,18 @@ class MainActivity : AppCompatActivity() {
             loading = false
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.recycler) {
+            startActivity(Intent(this, RecyclerActivity::class.java))
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.app_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/start_loading"
+            android:title="@string/start_loading" />
+        <item
+            android:id="@+id/end_loading_success"
+            android:title="@string/end_loading_success" />
+        <item
+            android:id="@+id/end_loading_empty"
+            android:title="@string/end_loading_empty" />
+        <item
+            android:id="@+id/end_loading_error"
+            android:title="@string/end_loading_error" />
+    </group>
+
+    <group>
+        <item
+            android:id="@+id/switch_layout_manager"
+            android:title="@string/switch_layout_manager" />
+    </group>
+</menu>

@@ -1,4 +1,4 @@
-package studio.kio.android.stateful_pager
+package studio.kio.android.statefulpager
 
 import org.junit.Test
 
