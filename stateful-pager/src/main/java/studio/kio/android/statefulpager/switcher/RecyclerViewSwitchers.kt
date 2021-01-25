@@ -13,8 +13,12 @@ class RecyclerViewSwitcher(private val recyclerView: RecyclerView) : ViewStateSw
     private var defaultAdapter = recyclerView.adapter
     private var alternateAdapter = AlternateRecyclerAdapter(recyclerView.context)
 
+    private var defaultItemDecorations = getItemDecorationsFrom(recyclerView)
+
     override fun switchDefault() {
         recyclerView.adapter = defaultAdapter
+        clearItemDecorationsOf(recyclerView)
+        wrapItemDecorationsFor(recyclerView)
     }
 
     override fun switchAlternate(view: View) {
@@ -23,8 +27,32 @@ class RecyclerViewSwitcher(private val recyclerView: RecyclerView) : ViewStateSw
         if (recyclerView.adapter != alternateAdapter) {
             defaultAdapter = recyclerView.adapter
             recyclerView.adapter = alternateAdapter
+
+            defaultItemDecorations = getItemDecorationsFrom(recyclerView)
+            clearItemDecorationsOf(recyclerView)
         }
     }
+
+    private fun getItemDecorationsFrom(recyclerView: RecyclerView): List<RecyclerView.ItemDecoration> =
+        mutableListOf<RecyclerView.ItemDecoration>().apply {
+            val count = recyclerView.itemDecorationCount
+            repeat(count) {
+                add(recyclerView.getItemDecorationAt(it))
+            }
+        }
+
+    private fun clearItemDecorationsOf(recyclerView: RecyclerView) {
+        getItemDecorationsFrom(recyclerView).forEach {
+            recyclerView.removeItemDecoration(it)
+        }
+    }
+
+    private fun wrapItemDecorationsFor(recyclerView: RecyclerView) {
+        defaultItemDecorations.forEach {
+            recyclerView.addItemDecoration(it)
+        }
+    }
+
 }
 
 private class AlternateViewHolder(view: View) : RecyclerView.ViewHolder(view)

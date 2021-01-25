@@ -13,6 +13,7 @@ import studio.kio.android.statefulpager.StatefulPagerHelper
 /**
  * created by KIO on 2021/1/25
  */
+@Suppress("MemberVisibilityCanBePrivate")
 @SuppressLint("SetTextI18n")
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -22,10 +23,12 @@ abstract class BaseActivity : AppCompatActivity() {
                 statefulPagerHelper = it,
                 loadingView = StateLoadingBinding.inflate(layoutInflater),
                 errorView = StateErrorOrEmptyBinding.inflate(layoutInflater).apply {
-                    text.text = "There is nothing to be shown."
+                    text.text = "Oops, an error occurred during data loading!"
+                    icon.setImageResource(R.drawable.error)
                 },
                 emptyView = StateErrorOrEmptyBinding.inflate(layoutInflater).apply {
-                    text.text = "Oops, an error occurred during data loading!"
+                    text.text = "There is nothing to be shown."
+                    icon.setImageResource(R.drawable.empty)
                 }
             )
         }

@@ -13,6 +13,7 @@ import studio.kio.android.stateful.databinding.ActivityLauncherBinding
 import studio.kio.android.stateful.databinding.ItemLauncherBinding
 import studio.kio.android.stateful.sample.recycler.RecyclerActivity
 import studio.kio.android.stateful.sample.standard.StandardActivity
+import studio.kio.android.stateful.sample.viewpager.ViewPagerActivity
 
 class LauncherActivity : AppCompatActivity() {
 
@@ -25,8 +26,8 @@ class LauncherActivity : AppCompatActivity() {
         val data = listOf(
             LauncherItem("Standard Use Case", R.drawable.launcher_standard),
             LauncherItem("RecyclerView Use Case", R.drawable.launcher_standard),
-            LauncherItem("Transitions", R.drawable.launcher_standard),
-            LauncherItem("View Caching", R.drawable.launcher_standard)
+            LauncherItem("ViewPager Use Case", R.drawable.launcher_standard),
+            LauncherItem("Transitions", R.drawable.launcher_standard)
         )
 
         binding.launchItems.adapter = LauncherAdapter(data).apply {
@@ -34,7 +35,8 @@ class LauncherActivity : AppCompatActivity() {
                 val intent = when (it) {
                     0 -> Intent(this@LauncherActivity, StandardActivity::class.java)
                     1 -> Intent(this@LauncherActivity, RecyclerActivity::class.java)
-                    else -> null
+                    2 -> Intent(this@LauncherActivity, ViewPagerActivity::class.java)
+                    else -> throw NotImplementedError("This activity is still building!")
                 }
                 startActivity(intent)
             }
