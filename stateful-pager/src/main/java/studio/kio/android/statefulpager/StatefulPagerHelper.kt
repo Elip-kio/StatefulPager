@@ -5,13 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.MainThread
 import androidx.core.view.children
+import androidx.recyclerview.widget.RecyclerView
 import studio.kio.android.statefulpager.switchers.DefaultSwitcher
+import studio.kio.android.statefulpager.switchers.RecyclerViewSwitcher
 
 /**
  * created by KIO on 2021/1/11
  */
 class StatefulPagerHelper(private val container: ViewGroup) {
-    private val viewStateChanger = DefaultSwitcher(container)
+    private val viewStateChanger = when (container) {
+        is RecyclerView -> RecyclerViewSwitcher(container)
+        else -> DefaultSwitcher(container)
+    }
 
     var pageState = PageState.DEFAULT
         private set
