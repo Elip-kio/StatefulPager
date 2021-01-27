@@ -58,6 +58,6 @@ class RecyclerAdapter : RecyclerView.Adapter<BindingViewHolder<ItemRecyclerBindi
         holder.binding.title.text = "$position . This is a sample line"
     }
 
-    override fun getItemCount(): Int = 5
+    override fun getItemCount(): Int = 50
 
 }

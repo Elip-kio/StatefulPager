@@ -2,9 +2,14 @@ package studio.kio.android.stateful.sample.standard
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.transition.Explode
+import android.transition.Transition
+import android.transition.Visibility
+import android.view.View
 import studio.kio.android.stateful.core.BaseActivity
 import studio.kio.android.stateful.databinding.ActivityStatefulPageBinding
 import studio.kio.android.statefulpager.StatefulPagerHelper
+import studio.kio.android.statefulpager.effect.ScaleAnimationProvider
 
 class StandardActivity : BaseActivity() {
 
@@ -13,7 +18,7 @@ class StandardActivity : BaseActivity() {
     }
 
     override fun onCreateStatefulPagerHelper(): StatefulPagerHelper {
-        return StatefulPagerHelper(binding.container)
+        return StatefulPagerHelper(binding.container, ScaleAnimationProvider())
     }
 
     @SuppressLint("SetTextI18n")

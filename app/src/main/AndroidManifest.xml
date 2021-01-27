@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StatefulPager">
-        <activity android:name=".sample.viewpager.ViewPagerActivity"></activity>
+        <activity
+            android:name=".PlayActivity"
+            android:exported="true" />
+        <activity android:name=".sample.viewpager.ViewPagerActivity" />
         <activity android:name=".LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

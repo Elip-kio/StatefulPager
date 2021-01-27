@@ -10,10 +10,14 @@ import studio.kio.android.statefulpager.switcher.RecyclerViewSwitcher
 /**
  * created by KIO on 2021/1/11
  */
-class StatefulPagerHelper(private val container: ViewGroup) {
+@Suppress("CanBeParameter")
+class StatefulPagerHelper(
+    private val container: ViewGroup,
+    private val switchAnimationProvider: SwitchAnimationProvider? = null
+) {
     private val viewStateChanger = when (container) {
         is RecyclerView -> RecyclerViewSwitcher(container)
-        else -> DefaultSwitcher(container)
+        else -> DefaultSwitcher(container, switchAnimationProvider)
     }
 
     var pageState = PageState.DEFAULT
@@ -22,6 +26,8 @@ class StatefulPagerHelper(private val container: ViewGroup) {
     private val childrenOriginVisibility = mutableMapOf<View, Int>()
 
     fun showDefaultView() = container.post {
+        if (pageState == PageState.DEFAULT) return@post
+
         pageState = PageState.DEFAULT
 
         childrenOriginVisibility.iterator().forEach {

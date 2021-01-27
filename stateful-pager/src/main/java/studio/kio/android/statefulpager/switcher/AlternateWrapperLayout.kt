@@ -2,9 +2,11 @@ package studio.kio.android.statefulpager.switcher
 
 import android.content.Context
 import android.graphics.Rect
+import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.view.updateLayoutParams
+import java.lang.IllegalStateException
 
 /**
  * [AlternateWrapperLayout] is used to wrap minor layout.
@@ -37,4 +39,11 @@ class AlternateWrapperLayout(context: Context) : FrameLayout(context) {
             p.setPadding(it.left, it.top, it.right, it.bottom)
         }
     }
+
+    val contentView: View?
+        get() = when (childCount) {
+            0 -> null
+            1 -> getChildAt(0)
+            else -> throw IllegalStateException("AlternateWrapperLayout can host only one child.")
+        }
 }
