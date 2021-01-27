@@ -29,29 +29,30 @@ class DefaultSwitcher(
     }
 
     override fun switchAlternate(view: View) {
+        val alternateAdded = container.contains(alternateView)
+        val needReplaceContent = view != alternateView.contentView
 
-        //need replace alternate content
-        if (view != alternateView.contentView) {
-
-            if (container.contains(alternateView)) {
-                //animate other leave only alternate view is visible
+        if (needReplaceContent) {
+            if (alternateAdded) {
                 switchAnimationProvider?.otherLeave()?.run {
                     alternateView.contentView?.startAnimation(this)
                 }
             }
             alternateView.removeAllViews()
 
-            alternateView.addView(view, container.width, container.height)
+            alternateView.addView(view)
+        }
+
+        if ((!alternateAdded) || needReplaceContent) {
             switchAnimationProvider?.otherEnter()?.run {
                 view.startAnimation(this)
             }
         }
 
-        if (!container.contains(alternateView)) {
+        if (!alternateAdded) {
             switchAnimationProvider?.defaultLeave()?.run {
                 container.children.startAnimation(this)
             }
-
             container.addView(alternateView, container.width, container.height)
         }
     }
