@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/container"
-        android:layout_width="280dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:foreground="?selectableItemBackground"
@@ -15,11 +16,12 @@
         app:cardElevation="12dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="280dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="#fff"
-            android:padding="32dp">
+            android:padding="32dp"
+            android:visibility="visible">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon"
@@ -36,7 +38,7 @@
 
             <TextView
                 android:id="@+id/tips"
-                android:layout_width="wrap_content"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:gravity="center"
@@ -49,7 +51,7 @@
 
             <TextView
                 android:id="@+id/showTip"
-                android:layout_width="wrap_content"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
@@ -71,5 +73,14 @@
                 app:layout_constraintTop_toBottomOf="@id/showTip" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/showTip" />
     </androidx.cardview.widget.CardView>
 </FrameLayout>
