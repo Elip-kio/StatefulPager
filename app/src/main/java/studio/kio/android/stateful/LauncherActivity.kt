@@ -13,7 +13,6 @@ import studio.kio.android.stateful.databinding.ActivityLauncherBinding
 import studio.kio.android.stateful.databinding.ItemLauncherBinding
 import studio.kio.android.stateful.sample.recycler.RecyclerActivity
 import studio.kio.android.stateful.sample.standard.StandardActivity
-import studio.kio.android.stateful.sample.viewpager.ViewPagerActivity
 
 class LauncherActivity : AppCompatActivity() {
 
@@ -24,10 +23,16 @@ class LauncherActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val data = listOf(
-            LauncherItem("Standard Use Case", R.drawable.launcher_standard),
-            LauncherItem("RecyclerView Use Case", R.drawable.launcher_standard),
-            LauncherItem("ViewPager Use Case", R.drawable.launcher_standard),
-            LauncherItem("Transitions", R.drawable.launcher_standard)
+            LauncherItem(
+                "Standard Use Case",
+                getString(R.string.desc_standard),
+                R.drawable.launcher_standard
+            ),
+            LauncherItem(
+                "RecyclerView Use Case",
+                getString(R.string.desc_recycler),
+                R.drawable.launcher_standard
+            ),
         )
 
         binding.launchItems.adapter = LauncherAdapter(data).apply {
@@ -35,7 +40,6 @@ class LauncherActivity : AppCompatActivity() {
                 val intent = when (it) {
                     0 -> Intent(this@LauncherActivity, StandardActivity::class.java)
                     1 -> Intent(this@LauncherActivity, RecyclerActivity::class.java)
-                    2 -> Intent(this@LauncherActivity, ViewPagerActivity::class.java)
                     else -> throw NotImplementedError("This activity is still building!")
                 }
                 startActivity(intent)
@@ -62,6 +66,7 @@ private class LauncherAdapter(val data: List<LauncherItem>) :
 
     override fun onBindViewHolder(holder: BindingViewHolder<ItemLauncherBinding>, position: Int) {
         holder.binding.title.text = data[position].title
+        holder.binding.subtitle.text = data[position].desc
         holder.binding.image.setImageResource(data[position].image)
         holder.binding.root.setOnClickListener { onItemClickListener?.invoke(holder.adapterPosition) }
     }
@@ -69,4 +74,4 @@ private class LauncherAdapter(val data: List<LauncherItem>) :
     override fun getItemCount(): Int = data.size
 }
 
-data class LauncherItem(val title: String, @DrawableRes val image: Int)
+data class LauncherItem(val title: String, val desc: String, @DrawableRes val image: Int)
