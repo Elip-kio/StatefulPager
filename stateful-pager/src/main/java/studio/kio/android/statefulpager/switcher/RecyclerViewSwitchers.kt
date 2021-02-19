@@ -25,21 +25,41 @@ class RecyclerViewSwitcher(
     private var defaultItemDecorations = getItemDecorationsFrom(recyclerView)
 
     override fun switchDefault() {
-        clearItemDecorationsOf(recyclerView)
-        wrapItemDecorationsFor(recyclerView)
         alternateAdapter.isDefault = true
-        recyclerView.children.iterator().forEach {
-            switchAnimationProvider?.defaultEnter()?.run {
-                it.startAnimation(this)
-            }
+
+        val otherLeave = switchAnimationProvider?.otherLeave()
+        otherLeave?.run {
+            alternateAdapter.alternateView?.startAnimation(otherLeave)
         }
-        alternateAdapter.alternateView = null
-        alternateAdapter.notifyDataSetChanged()
+
+        recyclerView.postDelayed({
+            alternateAdapter.notifyDataSetChanged()
+            alternateAdapter.alternateView = null
+            recyclerView.post {
+                val defaultEnter = switchAnimationProvider?.defaultEnter()
+                if (defaultEnter != null) {
+                    recyclerView.postDelayed({
+                        clearItemDecorationsOf(recyclerView)
+                        wrapItemDecorationsFor(recyclerView)
+                    }, defaultEnter.duration)
+
+                    recyclerView.children.iterator().forEach {
+                        it.clearAnimation()
+                        it.startAnimation(defaultEnter)
+                    }
+                } else {
+                    clearItemDecorationsOf(recyclerView)
+                    wrapItemDecorationsFor(recyclerView)
+                }
+            }
+        }, otherLeave?.duration ?: 0)
     }
 
     override fun switchAlternate(view: View) {
         val needReplaceContent = alternateAdapter.alternateView != view
         val alternateAdded = alternateAdapter.alternateView != null
+
+        val defaultLeave = switchAnimationProvider?.defaultLeave()
 
         if (needReplaceContent) {
             if (alternateAdded) {
@@ -52,6 +72,7 @@ class RecyclerViewSwitcher(
 
         if ((!alternateAdded) || needReplaceContent) {
             switchAnimationProvider?.otherEnter()?.run {
+                view.clearAnimation()
                 view.startAnimation(this)
             }
         }
@@ -62,10 +83,12 @@ class RecyclerViewSwitcher(
                     it.startAnimation(this)
                 }
             }
-            alternateAdapter.isDefault = false
-            alternateAdapter.notifyDataSetChanged()
-            defaultItemDecorations = getItemDecorationsFrom(recyclerView)
-            clearItemDecorationsOf(recyclerView)
+            recyclerView.postDelayed({
+                alternateAdapter.isDefault = false
+                alternateAdapter.notifyDataSetChanged()
+                defaultItemDecorations = getItemDecorationsFrom(recyclerView)
+                clearItemDecorationsOf(recyclerView)
+            }, defaultLeave?.duration ?: 0)
         }
     }
 
