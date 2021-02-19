@@ -49,12 +49,13 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
             <com.google.android.material.tabs.TabLayout
-                android:layout_width="match_parent"
                 android:id="@+id/tabState"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:tabIndicatorFullWidth="false"
                 app:tabMode="scrollable"
-                app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                app:tabUnboundedRipple="true">
+                app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Caption">
+
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
@@ -89,9 +90,9 @@
                 android:id="@+id/tabAnimation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:tabIndicatorFullWidth="false"
                 app:tabMode="scrollable"
-                app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                app:tabUnboundedRipple="true">
+                app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Caption">
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
@@ -113,6 +114,37 @@
                     android:layout_height="wrap_content"
                     android:text="@string/animation_fade_scale" />
             </com.google.android.material.tabs.TabLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/duration"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/durationSlider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:stepSize="1"
+                android:valueFrom="0"
+                android:valueTo="1000"
+                app:trackHeight="12dp" />
+
+            <View
+                style="?android:dividerHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="8dp"
+                android:alpha="0.2"
+                android:background="@color/purple_500" />
+
+            <FrameLayout
+                android:id="@+id/controlSlot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

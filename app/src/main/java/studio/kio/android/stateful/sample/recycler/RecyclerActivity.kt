@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import studio.kio.android.stateful.core.BaseControlActivity
@@ -18,6 +21,15 @@ class RecyclerActivity : BaseControlActivity() {
 
     override fun onCreateStatefulPagerHelper() = StatefulPagerHelper(binding.recycler)
 
+    override fun customizeControls(
+        container: FrameLayout,
+        statefulPagerHelper: StatefulPagerHelper
+    ) {
+        container.removeAllViews()
+        //TODO use view binding replace this
+        container.addView(TextView(this).also { it.text = "Layout Manager" })
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,13 +37,20 @@ class RecyclerActivity : BaseControlActivity() {
 
         title = "Recycler View Demo"
 
-        binding.recycler.layoutManager = LinearLayoutManager(this)
+        binding.recycler.layoutManager = GridLayoutManager(this, 4)
         binding.recycler.adapter = RecyclerAdapter()
 
         binding.recycler.addItemDecoration(
             DividerItemDecoration(
                 this,
                 DividerItemDecoration.VERTICAL
+            )
+        )
+
+        binding.recycler.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.HORIZONTAL
             )
         )
 

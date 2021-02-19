@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayout
 import studio.kio.android.stateful.R
@@ -26,6 +27,7 @@ abstract class BaseControlActivity : AppCompatActivity() {
 
     private val statefulEnableConfig by lazy {
         onCreateStatefulPagerHelper()?.let {
+            customizeControls(binding.controlSlot, it)
             StatefulEnableConfig(
                 statefulPagerHelper = it,
                 loadingView = StateLoadingBinding.inflate(layoutInflater),
@@ -111,6 +113,18 @@ abstract class BaseControlActivity : AppCompatActivity() {
      */
     protected open fun onCreateStatefulPagerHelper(): StatefulPagerHelper? {
         return null
+    }
+
+    /**
+     * Through this function, subclass can slot their own controlling widgets into controlling board.
+     *
+     * @param container the placeholder in control board.
+     * @param statefulPagerHelper statefulPagerHelper used in control board.
+     */
+    protected open fun customizeControls(
+        container: FrameLayout,
+        statefulPagerHelper: StatefulPagerHelper
+    ) {
     }
 
     /**

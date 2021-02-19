@@ -18,4 +18,7 @@
     <string name="animation_fade">FADE</string>
     <string name="animation_scale">SCALE</string>
     <string name="animation_fade_scale">FADE SCALE</string>
+    <string name="duration">Duration(ms)</string>
+    <string name="number_0">0</string>
+    <string name="number_100">100</string>
 </resources>
