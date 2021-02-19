@@ -14,4 +14,8 @@
     <string name="control_board">Control Board</string>
     <string name="state">States</string>
     <string name="animation">Animations</string>
+    <string name="animation_empty">EMPTY</string>
+    <string name="animation_fade">FADE</string>
+    <string name="animation_scale">SCALE</string>
+    <string name="animation_fade_scale">FADE SCALE</string>
 </resources>

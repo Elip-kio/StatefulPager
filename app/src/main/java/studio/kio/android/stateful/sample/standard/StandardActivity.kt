@@ -5,7 +5,6 @@ import android.os.Bundle
 import studio.kio.android.stateful.core.BaseControlActivity
 import studio.kio.android.stateful.databinding.ActivityStatefulPageBinding
 import studio.kio.android.statefulpager.StatefulPagerHelper
-import studio.kio.android.statefulpager.effect.ScaleFadeAnimationProvider
 
 class StandardActivity : BaseControlActivity() {
 
@@ -14,7 +13,7 @@ class StandardActivity : BaseControlActivity() {
     }
 
     override fun onCreateStatefulPagerHelper(): StatefulPagerHelper {
-        return StatefulPagerHelper(binding.container, ScaleFadeAnimationProvider())
+        return StatefulPagerHelper(binding.container)
     }
 
     @SuppressLint("SetTextI18n")

@@ -86,6 +86,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
             <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabAnimation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabMode="scrollable"
@@ -95,22 +96,22 @@
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/start_loading" />
+                    android:text="@string/animation_empty" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/end_loading_success" />
+                    android:text="@string/animation_fade" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/end_loading_empty" />
+                    android:text="@string/animation_scale" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/end_loading_error" />
+                    android:text="@string/animation_fade_scale" />
             </com.google.android.material.tabs.TabLayout>
 
         </LinearLayout>

@@ -12,13 +12,11 @@ import studio.kio.android.stateful.core.BindingViewHolder
 import studio.kio.android.stateful.databinding.ActivityListBinding
 import studio.kio.android.stateful.databinding.ItemRecyclerBinding
 import studio.kio.android.statefulpager.StatefulPagerHelper
-import studio.kio.android.statefulpager.effect.ScaleFadeAnimationProvider
 
 class RecyclerActivity : BaseControlActivity() {
     private val binding by lazy { ActivityListBinding.inflate(layoutInflater) }
 
-    override fun onCreateStatefulPagerHelper() =
-        StatefulPagerHelper(binding.recycler, ScaleFadeAnimationProvider())
+    override fun onCreateStatefulPagerHelper() = StatefulPagerHelper(binding.recycler)
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
