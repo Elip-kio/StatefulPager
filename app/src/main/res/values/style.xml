@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.App.BottomCard" parent="Theme.MaterialComponents.Light">
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.RoundedTop</item>
+        <item name="colorSurface">#F7ECFF</item>
+    </style>
+
+    <style name="ShapeAppearance.App.RoundedTop" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamilyTopLeft">cut</item>
+        <item name="cornerSizeTopLeft">24dp</item>
+    </style>
+</resources>
