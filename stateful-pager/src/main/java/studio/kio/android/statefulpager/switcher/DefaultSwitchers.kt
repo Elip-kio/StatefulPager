@@ -16,9 +16,15 @@ class DefaultSwitcher(
     private val switchAnimationProvider: SwitchAnimationProvider? = null
 ) : ViewStateSwitcher {
 
+    private val childrenOriginVisibility = mutableMapOf<View, Int>()
+
     private var alternateView = AlternateWrapperLayout(container.context)
 
     override fun switchDefault() {
+        childrenOriginVisibility.iterator().forEach {
+            it.key.visibility = it.value
+        }
+
         switchAnimationProvider?.otherLeave()?.run {
             alternateView.startAnimation(this)
         }
@@ -50,6 +56,12 @@ class DefaultSwitcher(
         }
 
         if (!alternateAdded) {
+            childrenOriginVisibility.clear()
+            container.children.forEach {
+                childrenOriginVisibility[it] = it.visibility
+                it.visibility = View.GONE
+            }
+
             switchAnimationProvider?.defaultLeave()?.run {
                 container.children.startAnimation(this)
             }
