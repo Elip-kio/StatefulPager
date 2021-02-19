@@ -47,6 +47,7 @@ abstract class BaseControlActivity : AppCompatActivity() {
         binding = BaseControllScaffoldBinding.inflate(layoutInflater)
 
         statefulEnableConfig?.apply {
+            this.statefulPagerHelper.show(loadingView.root)
             binding.tabState.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     when (tab?.text) {
