@@ -2,16 +2,15 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f5f5f5">
 
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="150dp"
-        android:background="#f5f5f5" />
+        android:layout_height="match_parent" />
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +18,9 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:focusable="true"
-        app:cardCornerRadius="12dp"
+        android:theme="@style/Theme.App.BottomCard"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="100dp"
         app:cardElevation="12dp"
         app:contentPaddingBottom="12dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -28,126 +29,130 @@
             android:layout_width="32dp"
             android:layout_height="4dp"
             android:layout_gravity="center|top"
-            android:layout_marginTop="8dp"
             android:visibility="visible"
-            app:cardBackgroundColor="#e9e9e9"
+            app:cardBackgroundColor="#BDBDBD"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp" />
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical"
-            android:paddingVertical="4dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/state"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabState"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabIndicatorFullWidth="false"
-                app:tabMode="scrollable"
-                app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Caption">
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:paddingVertical="4dp">
 
-
-                <com.google.android.material.tabs.TabItem
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/start_loading" />
+                    android:layout_marginStart="8dp"
+                    android:text="@string/state"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
-                <com.google.android.material.tabs.TabItem
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabMode="scrollable"
+                    app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Caption">
+
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/start_loading" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/end_loading_success" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/end_loading_empty" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/end_loading_error" />
+                </com.google.android.material.tabs.TabLayout>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/end_loading_success" />
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/animation"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
-                <com.google.android.material.tabs.TabItem
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabAnimation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabMode="scrollable"
+                    app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Caption">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/animation_empty" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/animation_fade" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/animation_scale" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/animation_fade_scale" />
+                </com.google.android.material.tabs.TabLayout>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/end_loading_empty" />
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/duration"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/durationSlider"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/end_loading_error" />
-            </com.google.android.material.tabs.TabLayout>
+                    android:layout_marginHorizontal="8dp"
+                    android:stepSize="1"
+                    android:valueFrom="0"
+                    android:valueTo="1000"
+                    app:trackHeight="12dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/animation"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+                <View
+                    style="?android:dividerHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:alpha="0.2"
+                    android:background="@color/purple_500" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabAnimation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabIndicatorFullWidth="false"
-                app:tabMode="scrollable"
-                app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Caption">
+                <FrameLayout
+                    android:id="@+id/controlSlot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/animation_empty" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/animation_fade" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/animation_scale" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/animation_fade_scale" />
-            </com.google.android.material.tabs.TabLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/duration"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/durationSlider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:stepSize="1"
-                android:valueFrom="0"
-                android:valueTo="1000"
-                app:trackHeight="12dp" />
-
-            <View
-                style="?android:dividerHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="8dp"
-                android:alpha="0.2"
-                android:background="@color/purple_500" />
-
-            <FrameLayout
-                android:id="@+id/controlSlot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -5,16 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import studio.kio.android.stateful.R
 import studio.kio.android.stateful.core.BaseControlActivity
 import studio.kio.android.stateful.core.BindingViewHolder
 import studio.kio.android.stateful.databinding.ActivityListBinding
 import studio.kio.android.stateful.databinding.ItemRecyclerBinding
+import studio.kio.android.stateful.databinding.SlotRecyclerBinding
 import studio.kio.android.statefulpager.StatefulPagerHelper
+import kotlin.random.Random
 
 class RecyclerActivity : BaseControlActivity() {
     private val binding by lazy { ActivityListBinding.inflate(layoutInflater) }
@@ -26,8 +28,20 @@ class RecyclerActivity : BaseControlActivity() {
         statefulPagerHelper: StatefulPagerHelper
     ) {
         container.removeAllViews()
-        //TODO use view binding replace this
-        container.addView(TextView(this).also { it.text = "Layout Manager" })
+        SlotRecyclerBinding.inflate(layoutInflater, container, true).apply {
+            val random = Random(System.currentTimeMillis())
+            layoutManagerChoice.setOnCheckedChangeListener { _, checkedId ->
+                when (checkedId) {
+                    R.id.check_linear -> {
+                        binding.recycler.layoutManager = LinearLayoutManager(this@RecyclerActivity)
+                    }
+                    R.id.check_grid -> {
+                        binding.recycler.layoutManager =
+                            GridLayoutManager(this@RecyclerActivity, random.nextInt(2, 6))
+                    }
+                }
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -37,7 +51,7 @@ class RecyclerActivity : BaseControlActivity() {
 
         title = "Recycler View Demo"
 
-        binding.recycler.layoutManager = GridLayoutManager(this, 4)
+        binding.recycler.layoutManager = LinearLayoutManager(this)
         binding.recycler.adapter = RecyclerAdapter()
 
         binding.recycler.addItemDecoration(

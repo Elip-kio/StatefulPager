@@ -6,8 +6,9 @@
     <string name="end_loading_empty">EMPTY</string>
     <string name="end_loading_error">ERROR</string>
     <string name="switch_layout_manager">Switch Layout Manager</string>
-    <string name="linear_layout_manager">LinearLayoutManager</string>
-    <string name="grid_layout_manager">GridLayoutManager</string>
+    <string name="linear_layout_manager">Linear Layout Manager</string>
+    <string name="grid_layout_manager">Grid Layout Manager</string>
+    <string name="layout_manager">Layout Managers</string>
 
     <string name="desc_standard">Used in most cases and based on visibility switching, suit for \'FrameLayout\',\'RelativeLayout\',\'LinearLayout\' or \'ConstraintLayout\' etc.</string>
     <string name="desc_recycler">Used in \'RecyclerView\' and based on adapter delegating, it\'s animations have different behavior.</string>
