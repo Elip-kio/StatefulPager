@@ -1,14 +1,17 @@
 <resources>
     <string name="app_name">Stateful Pager</string>
     <string name="recycler_view_demo">RecyclerView Demo</string>
-    <string name="start_loading">Start Loading</string>
-    <string name="end_loading_success">End Loading Success</string>
-    <string name="end_loading_empty">End Loading Empty</string>
-    <string name="end_loading_error">End Loading Error</string>
+    <string name="start_loading">LOADING</string>
+    <string name="end_loading_success">SUCCESS</string>
+    <string name="end_loading_empty">EMPTY</string>
+    <string name="end_loading_error">ERROR</string>
     <string name="switch_layout_manager">Switch Layout Manager</string>
     <string name="linear_layout_manager">LinearLayoutManager</string>
     <string name="grid_layout_manager">GridLayoutManager</string>
 
     <string name="desc_standard">Used in most cases and based on visibility switching, suit for \'FrameLayout\',\'RelativeLayout\',\'LinearLayout\' or \'ConstraintLayout\' etc.</string>
     <string name="desc_recycler">Used in \'RecyclerView\' and based on adapter delegating, it\'s animations have different behavior.</string>
+    <string name="control_board">Control Board</string>
+    <string name="state">States</string>
+    <string name="animation">Animations</string>
 </resources>

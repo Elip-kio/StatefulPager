@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import studio.kio.android.stateful.core.BaseActivity
+import studio.kio.android.stateful.core.BaseControlActivity
 import studio.kio.android.stateful.core.BindingViewHolder
 import studio.kio.android.stateful.databinding.ActivityListBinding
 import studio.kio.android.stateful.databinding.ItemRecyclerBinding
 import studio.kio.android.statefulpager.StatefulPagerHelper
 import studio.kio.android.statefulpager.effect.ScaleFadeAnimationProvider
 
-class RecyclerActivity : BaseActivity() {
+class RecyclerActivity : BaseControlActivity() {
     private val binding by lazy { ActivityListBinding.inflate(layoutInflater) }
 
     override fun onCreateStatefulPagerHelper() =
@@ -23,7 +23,7 @@ class RecyclerActivity : BaseActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        installContent(binding.root)
 
         title = "Recycler View Demo"
 
