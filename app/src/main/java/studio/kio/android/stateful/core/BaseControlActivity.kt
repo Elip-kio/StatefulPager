@@ -2,10 +2,14 @@ package studio.kio.android.stateful.core
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.CycleInterpolator
+import android.view.animation.TranslateAnimation
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayout
 import studio.kio.android.stateful.R
 import studio.kio.android.stateful.databinding.BaseControllScaffoldBinding
@@ -24,6 +28,17 @@ import studio.kio.android.statefulpager.effect.ScaleFadeAnimationProvider
 abstract class BaseControlActivity : AppCompatActivity() {
 
     private lateinit var binding: BaseControllScaffoldBinding
+
+    private val shakingAnimation by lazy {
+        TranslateAnimation(0f, 30f, 0f, 0f).apply {
+            interpolator = CycleInterpolator(2f)
+            duration = 200
+        }
+    }
+
+    private val controlBehavior by lazy {
+        BottomSheetBehavior.from(binding.control)
+    }
 
     private val statefulEnableConfig by lazy {
         onCreateStatefulPagerHelper()?.let {
@@ -98,9 +113,22 @@ abstract class BaseControlActivity : AppCompatActivity() {
         binding.tabAnimation.clearOnTabSelectedListeners()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_controls, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home)
             finish()
+
+        if (item.itemId == R.id.showControl) {
+            if (controlBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
+                controlBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            } else {
+                binding.control.startAnimation(shakingAnimation)
+            }
+        }
 
         return super.onOptionsItemSelected(item)
     }
