@@ -5,17 +5,20 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.Animation
 import android.view.animation.CycleInterpolator
 import android.view.animation.TranslateAnimation
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.slider.Slider
 import com.google.android.material.tabs.TabLayout
 import studio.kio.android.stateful.R
 import studio.kio.android.stateful.databinding.BaseControllScaffoldBinding
 import studio.kio.android.stateful.databinding.StateErrorOrEmptyBinding
 import studio.kio.android.stateful.databinding.StateLoadingBinding
 import studio.kio.android.statefulpager.StatefulPagerHelper
+import studio.kio.android.statefulpager.SwitchAnimationProvider
 import studio.kio.android.statefulpager.effect.FadeAnimationProvider
 import studio.kio.android.statefulpager.effect.ScaleAnimationProvider
 import studio.kio.android.statefulpager.effect.ScaleFadeAnimationProvider
@@ -67,6 +70,11 @@ abstract class BaseControlActivity : AppCompatActivity() {
             this.statefulPagerHelper.show(loadingView.root)
             binding.tabState.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
+                    statefulPagerHelper.switchAnimationProvider =
+                        DurationAnimationProvider(
+                            statefulPagerHelper.switchAnimationProvider,
+                            this@apply.commonDuration
+                        )
                     when (tab?.text) {
                         getString(R.string.start_loading) -> statefulPagerHelper.show(loadingView.root)
                         getString(R.string.end_loading_success) -> statefulPagerHelper.showDefaultView()
@@ -104,7 +112,31 @@ abstract class BaseControlActivity : AppCompatActivity() {
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {}
             })
+
+            binding.durationSlider.addOnChangeListener(Slider.OnChangeListener { _, value, fromUser ->
+                if (fromUser) {
+                    statefulEnableConfig?.commonDuration = value.toLong()
+                }
+            })
         }
+    }
+
+    class DurationAnimationProvider(
+        val switchAnimationProvider: SwitchAnimationProvider?,
+        val commonDuration: Long = 0
+    ) : SwitchAnimationProvider {
+        override fun defaultLeave(): Animation? =
+            switchAnimationProvider?.defaultLeave()?.apply { duration = commonDuration }
+
+        override fun defaultEnter(): Animation? =
+            switchAnimationProvider?.defaultEnter()?.apply { duration = commonDuration }
+
+        override fun otherLeave(): Animation? =
+            switchAnimationProvider?.otherLeave()?.apply { duration = commonDuration }
+
+        override fun otherEnter(): Animation? =
+            switchAnimationProvider?.otherEnter()?.apply { duration = commonDuration }
+
     }
 
     override fun onDestroy() {
@@ -171,8 +203,9 @@ abstract class BaseControlActivity : AppCompatActivity() {
         }
     }
 
-    private data class StatefulEnableConfig(
+    data class StatefulEnableConfig(
         val statefulPagerHelper: StatefulPagerHelper,
+        var commonDuration: Long = 300,
         val loadingView: StateLoadingBinding,
         val emptyView: StateErrorOrEmptyBinding,
         val errorView: StateErrorOrEmptyBinding,

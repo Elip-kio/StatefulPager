@@ -21,6 +21,7 @@
         android:clipToPadding="false"
         android:paddingHorizontal="12dp"
         android:paddingVertical="8dp"
+        app:selectionRequired="true"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
